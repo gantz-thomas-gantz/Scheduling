@@ -8,6 +8,7 @@
 // extract = finished
 
 void schedule_end_unlimited_workers(struct Task *dag, int N){
+    set_req(dag,N);
     min_heap *heap = create_min_heap(N/100+10); // randomly chosen
     for(int i=0; i<N; i++){
         if(dag[i].req==0){
@@ -33,6 +34,7 @@ void schedule_end_unlimited_workers(struct Task *dag, int N){
 // Alternative: Job with the most successors first
 
 void schedule_end_limited_workers(struct Task *dag, int N, int workers){
+    set_req(dag,N);
     min_heap *startable = create_min_heap(N/100+10); // randomly chosen
     min_heap *started = create_min_heap(N/100+10); // randomly chosen
 

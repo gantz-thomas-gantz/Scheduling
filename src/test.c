@@ -21,28 +21,22 @@ static bool test_correctness(struct Task *dag, int N){
     return true;
 }
 
-double TEST_schedule_end_unlimited_workers(int N){
-    struct Task *dag = malloc(N*sizeof(struct Task));
-    generate_random_DAG(dag,N);
+double TEST_schedule_end_unlimited_workers(struct Task *dag, int N){
     schedule_end_unlimited_workers(dag,N);
     if(test_correctness(dag,N)==false) return -1.0;
     double end = 0.0;
     for(int task_idx=0; task_idx<N; task_idx++){
         end = end >= dag[task_idx].end ? end : dag[task_idx].end;
     }
-    free_random_DAG(dag,N);
     return end;
 }
 
-double TEST_schedule_end_limited_workers(int N, int workers){
-    struct Task *dag = malloc(N*sizeof(struct Task));
-    generate_random_DAG(dag,N);
+double TEST_schedule_end_limited_workers(struct Task *dag, int N, int workers){
     schedule_end_limited_workers(dag,N,workers);
     if(test_correctness(dag,N)==false) return -1.0;
     double end = 0.0;
     for(int task_idx=0; task_idx<N; task_idx++){
         end = end >= dag[task_idx].end ? end : dag[task_idx].end;
     }
-    free_random_DAG(dag,N);
     return end;
 }

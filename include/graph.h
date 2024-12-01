@@ -13,7 +13,9 @@ void print_task(const struct Task* task);
 
 void print_all_tasks(const struct Task* dag, int N);
 
-void generate_random_DAG(struct Task* dag, int N);
+struct Task *generate_random_DAG(int N);
+
+void set_req(struct Task *dag, int N);
 
 void free_random_DAG(struct Task* dag, int N);
 

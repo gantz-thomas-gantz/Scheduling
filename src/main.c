@@ -6,10 +6,16 @@
 
 int main(){
 
+    int N = 10000;
+
     srand((unsigned int)time(NULL));
-    // Time on different graphs!!!
-    printf("TEST_schedule_end_limited_workers(10000,1): %lf\n", TEST_schedule_end_limited_workers(10000,1));
-    printf("TEST_schedule_end_limited_workers(10000,2): %lf\n", TEST_schedule_end_limited_workers(10000,2));
-    printf("TEST_schedule_end_limited_workers(10000,3): %lf\n", TEST_schedule_end_limited_workers(10000,3));
-    printf("TEST_schedule_end_unlimited_workers(10000): %lf\n", TEST_schedule_end_unlimited_workers(10000));
+    
+    struct Task *dag = generate_random_DAG(N);
+        
+    printf("TEST_schedule_end_limited_workers(dag,N,1): %lf\n", TEST_schedule_end_limited_workers(dag,N,1));
+    printf("TEST_schedule_end_limited_workers(dag,N,2): %lf\n", TEST_schedule_end_limited_workers(dag,N,2));
+    printf("TEST_schedule_end_limited_workers(dag,N,3): %lf\n", TEST_schedule_end_limited_workers(dag,N,3));
+    printf("TEST_schedule_end_unlimited_workers(dag,N): %lf\n", TEST_schedule_end_unlimited_workers(dag,N));
+
+    free_random_DAG(dag,N);
 }

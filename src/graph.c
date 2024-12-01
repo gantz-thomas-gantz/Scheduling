@@ -90,8 +90,8 @@ static double random_double(double min, double max) {
     return min + (rand() / (double)RAND_MAX) * (max - min);
 }
 
-void generate_random_DAG(struct Task *dag, int N){
-    
+struct Task *generate_random_DAG(int N){
+    struct Task *dag = malloc(N*sizeof(struct Task));
     // Create N random tasks
     for(int i=0; i<N; i++){
         struct Task *task = malloc(sizeof(struct Task));
@@ -113,8 +113,10 @@ void generate_random_DAG(struct Task *dag, int N){
         free(neighbors);
         dag[i] = *task;
     }
+    return dag;
+}
 
-    // Loop over the graph to determine the req
+void set_req(struct Task *dag, int N){
     for(int task_idx=0; task_idx<N; task_idx++){
         for(int k=0; k<dag[task_idx].ns; k++){
             int successor_idx = dag[task_idx].successors[k];
