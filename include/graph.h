@@ -1,6 +1,9 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 struct Task {
     double duration;
-    double start;
+    double end;
     int req;    // current number of tasks that need to be finished before
     int ns;
     int *successors;       
@@ -9,3 +12,5 @@ struct Task {
 void generate_random_DAG(struct Task* dag, int N);
 
 void free_random_DAG(struct Task* dag, int N);
+
+#endif /* GRAPH_H */

@@ -35,7 +35,7 @@ static double random_double(double min, double max) {
     return min + (rand() / (double)RAND_MAX) * (max - min);
 }
 
-void generate_random_DAG(struct Task* dag, int N){
+void generate_random_DAG(struct Task *dag, int N){
     
     // Create N random tasks
     for(int i=0; i<N; i++){
@@ -44,7 +44,7 @@ void generate_random_DAG(struct Task* dag, int N){
         int count1 = fill_array(neighbors,N,i+1); // to fill only from i+1 makes sure it's a DAG
 
         task->duration = random_double(1.0,10.0);
-        task->start = -1.0;
+        task->end = -1.0;
         task->req = 0;
         task->ns = count1;
         task->successors = malloc(count1*sizeof(int));
