@@ -1,6 +1,61 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "../include/graph.h"
+
+#include <stdio.h>
+
+/**
+ * @brief Prints the details of a given task.
+ * 
+ * @param task Pointer to the Task structure to be printed.
+ */
+void print_task(const struct Task* task) {
+    if (task == NULL) {
+        printf("Task is NULL.\n");
+        return;
+    }
+
+    printf("Task Details:\n");
+    printf("  Duration: %.2f\n", task->duration);
+    printf("  End: %.2f\n", task->end);
+    printf("  Requirements (req): %d\n", task->req);
+    printf("  Number of Successors (ns): %d\n", task->ns);
+
+    if (task->ns > 0 && task->successors != NULL) {
+        printf("  Successors: ");
+        for (int i = 0; i < task->ns; ++i) {
+            printf("%d", task->successors[i]);
+            if (i < task->ns - 1) {
+                printf(", ");
+            }
+        }
+        printf("\n");
+    } else {
+        printf("  No successors.\n");
+    }
+}
+
+/**
+ * @brief Prints the details of all tasks in an array.
+ * 
+ * @param tasks Pointer to the array of Task structures.
+ * @param n Number of tasks in the array.
+ */
+void print_all_tasks(const struct Task* tasks, int n) {
+    if (tasks == NULL || n <= 0) {
+        printf("No tasks to display.\n");
+        return;
+    }
+
+    printf("Printing all tasks (%d total):\n", n);
+    for (int i = 0; i < n; ++i) {
+        printf("Task %d:\n", i);
+        print_task(&tasks[i]);
+        printf("\n"); // Add a blank line between tasks for readability
+    }
+}
+
 
 static int fill_array(int *array, int size, int start) {
     // Initialize the random number generator
@@ -60,10 +115,10 @@ void generate_random_DAG(struct Task *dag, int N){
     }
 
     // Loop over the graph to determine the req
-    for(int i=0; i<N; i++){
-        struct Task task = dag[i];
-        for(int j=0; i<task.ns; i++){
-            (dag[(task.successors)[j]]).req++;
+    for(int task_idx=0; task_idx<N; task_idx++){
+        for(int k=0; k<dag[task_idx].ns; k++){
+            int successor_idx = dag[task_idx].successors[k];
+            dag[successor_idx].req++;
         }
     }
 }

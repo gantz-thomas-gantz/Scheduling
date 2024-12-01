@@ -7,13 +7,13 @@
 #include "../include/graph.h"
 #include "../include/scheduling.h"
 
-// call successors correctly !!!
 static bool test_correctness(struct Task *dag, int N){
     for(int task_idx=0; task_idx<N; task_idx++){
         double predecessor_end = dag[task_idx].end;
-        for(int successor_idx=0; successor_idx<dag[task_idx].ns; successor_idx++){
-            double succesor_start = dag[successor_idx].end - dag[successor_idx].duration;
-            if(succesor_start<predecessor_end){
+        for(int k=0; k<dag[task_idx].ns; k++){
+            int successor_idx = dag[task_idx].successors[k];
+            double successor_start = dag[successor_idx].end - dag[successor_idx].duration;
+            if(successor_start<=predecessor_end){
                 return false;
             } 
         }
@@ -28,7 +28,6 @@ double TEST_schedule_end_unlimited_workers(int N){
     if(test_correctness(dag,N)==false) return -1.0;
     double end = 0.0;
     for(int task_idx=0; task_idx<N; task_idx++){
-        printf("%lf\n", dag[task_idx].end);
         end = end >= dag[task_idx].end ? end : dag[task_idx].end;
     }
     free_random_DAG(dag,N);

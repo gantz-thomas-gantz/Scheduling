@@ -2,6 +2,8 @@
 #include "../include/graph.h"
 #include "../include/heap.h"
 
+#define SHIFT 10e-10
+
 // insert = launch
 // extract = finished
 
@@ -20,7 +22,7 @@ void schedule_end_unlimited_workers(struct Task *dag, int N){
             int successor_idx = dag[task_idx].successors[k];
             dag[successor_idx].req--;
             if(dag[successor_idx].req==0){
-                insert(heap, successor_idx, dag[task_idx].end + dag[successor_idx].duration);
+                insert(heap, successor_idx, dag[task_idx].end + dag[successor_idx].duration + SHIFT);
             } 
         }
     }
@@ -48,18 +50,12 @@ void schedule_end_limited_workers(struct Task *dag, int N, int workers){
         active_workers++;
     }
 
-    while(startable->size>0 || started->size>0){
+    while(started->size>0){
 
         heap_node started_node = extract_min(started);
         active_workers--;
         int task_idx = started_node.i;
         dag[task_idx].end = started_node.val;
-
-        while(startable->size>0 && active_workers<workers){
-            heap_node startable_node = extract_min(startable);
-            insert(started, startable_node.i, dag[task_idx].end + dag[startable_node.i].duration);
-            active_workers++;
-        }
         
         for(int k=0; k<dag[task_idx].ns; k++){
             int successor_idx = dag[task_idx].successors[k];
@@ -67,6 +63,12 @@ void schedule_end_limited_workers(struct Task *dag, int N, int workers){
             if(dag[successor_idx].req==0){
                 insert(startable, successor_idx, dag[successor_idx].duration); 
             } 
+        }
+
+        while(startable->size>0 && active_workers<workers){
+            heap_node startable_node = extract_min(startable);
+            insert(started, startable_node.i, dag[task_idx].end + dag[startable_node.i].duration + SHIFT);
+            active_workers++;
         }
     }
     free_min_heap(startable);

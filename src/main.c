@@ -5,7 +5,11 @@
 #include "../include/test.h"
 
 int main(){
+
     srand((unsigned int)time(NULL));
-    printf("TEST_schedule_end_unlimited_workers(10): %lf\n", TEST_schedule_end_unlimited_workers(10));
-    printf("TEST_schedule_end_limited_workers(1000,10): %lf\n", TEST_schedule_end_limited_workers(1000,10));
+    // Time on different graphs!!!
+    printf("TEST_schedule_end_limited_workers(10000,1): %lf\n", TEST_schedule_end_limited_workers(10000,1));
+    printf("TEST_schedule_end_limited_workers(10000,2): %lf\n", TEST_schedule_end_limited_workers(10000,2));
+    printf("TEST_schedule_end_limited_workers(10000,3): %lf\n", TEST_schedule_end_limited_workers(10000,3));
+    printf("TEST_schedule_end_unlimited_workers(10000): %lf\n", TEST_schedule_end_unlimited_workers(10000));
 }
