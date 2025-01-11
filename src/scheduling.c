@@ -7,7 +7,7 @@
 // insert = launch
 // extract = finished
 
-void schedule_end_unlimited_workers(struct Task *dag, int N){
+void unlimited_workers(struct Task *dag, int N){
     set_req(dag,N);
     min_heap *heap = create_min_heap(N/100+10); // randomly chosen
     for(int i=0; i<N; i++){
@@ -33,7 +33,7 @@ void schedule_end_unlimited_workers(struct Task *dag, int N){
 // Shortest-Job-First in startable
 // Alternative: Job with the most successors first
 
-void schedule_end_limited_workers(struct Task *dag, int N, int workers){
+void limited_workers(struct Task *dag, int N, int workers){
     set_req(dag,N);
     min_heap *startable = create_min_heap(N/100+10); // randomly chosen
     min_heap *started = create_min_heap(N/100+10); // randomly chosen

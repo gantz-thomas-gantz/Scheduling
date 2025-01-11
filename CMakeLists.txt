@@ -5,7 +5,7 @@ project(MU4MA016_Project)
 set(CMAKE_C_STANDARD 11)
 
 # Define the executable target
-add_executable(main src/main.c src/test.c src/graph.c src/heap.c src/scheduling.c)
+add_executable(main src/main.c src/test.c src/graph.c src/heap.c src/scheduling.c src/topological_sort.c)
 
 # Add include directories
 target_include_directories(main PUBLIC include)
