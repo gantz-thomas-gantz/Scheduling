@@ -7,6 +7,8 @@
 // insert = launch
 // extract = finished
 
+// O(V * logV + E) E = V^2/2
+
 void unlimited_workers(struct Task *dag, int N){
     set_req(dag,N);
     min_heap *heap = create_min_heap(N/100+10); // randomly chosen
