@@ -14,7 +14,7 @@
 void topological_sort(struct Task *dag, int N) {
     set_req(dag, N);
     CircularQueue q;
-    init_circular_queue(&q, N);  // Initialize the circular queue with a capacity of N tasks
+    init_circular_queue(&q, N/100+10);  // Initialize the circular queue with a capacity of N tasks
 
     double TIME = 0.;
 
