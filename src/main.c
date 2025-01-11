@@ -10,10 +10,10 @@ int main(){
 
     FILE *results_file = fopen("results.txt", "w");
     FILE *times_file = fopen("times.txt", "w");
-    fprintf(results_file, "N TS W1 W2 W3 W4 W5 WU\n");
-    fprintf(times_file, "N TS W1 W2 W3 W4 W5 WU\n");
+    fprintf(results_file, "N TS TS(SJF) W1 W2 W3 W4 W5 WU\n");
+    fprintf(times_file, "N TS TS(SJF) W1 W2 W3 W4 W5 WU\n");
     
-    for (int N = 512; N <= 50000; N *= 2) {
+    for (int N = 512; N <= 5000; N *= 2) { //50 000
         
         struct Task *dag = generate_random_DAG(N);
         clock_t start, end;
@@ -25,6 +25,13 @@ int main(){
         elapsed = (double)(end - start) / CLOCKS_PER_SEC;
         fprintf(results_file, "%d %lf ", N, result);
         fprintf(times_file, "%d %lf ", N, elapsed);
+
+        start = clock();
+        result = TEST_topological_sort_SJF(dag, N);
+        end = clock();
+        elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+        fprintf(results_file, "%lf ", result);
+        fprintf(times_file, "%lf", elapsed);
         
         for (int workers = 1; workers <= 5; workers++) {
             start = clock();

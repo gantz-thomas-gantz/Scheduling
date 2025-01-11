@@ -90,29 +90,35 @@ static double random_double(double min, double max) {
     return min + (rand() / (double)RAND_MAX) * (max - min);
 }
 
-struct Task *generate_random_DAG(int N){
-    struct Task *dag = malloc(N*sizeof(struct Task));
+struct Task *generate_random_DAG(int N) {
+    struct Task *dag = malloc(N * sizeof(struct Task));
+    
     // Create N random tasks
-    for(int i=0; i<N; i++){
+    for (int i = 0; i < N; i++) {
         struct Task *task = malloc(sizeof(struct Task));
-        int *neighbors = calloc(N,sizeof(int));
-        int count1 = fill_array(neighbors,N,i+1); // to fill only from i+1 makes sure it's a DAG
+        int *neighbors = calloc(N, sizeof(int));
 
-        task->duration = random_double(1.0,10.0);
+        // Fill adjacency array, only allowing successors from i+1 onward to maintain DAG property
+        task->ns = fill_array(neighbors, N, i + 1);
+
+        task->duration = random_double(1.0, 10.0);
         task->end = -1.0;
         task->req = 0;
-        task->ns = count1;
-        task->successors = malloc(count1*sizeof(int));
+        task->successors = malloc(task->ns * sizeof(int));
+
+        // Copy successor indices
         int place = 0;
-        for(int j=0; j<N; j++){
-            if(neighbors[j]==1){
-                (task->successors)[place] = j;
-                place++;
+        for (int j = 0; j < N; j++) {
+            if (neighbors[j] == 1) {
+                task->successors[place++] = j;
             }
         }
+
         free(neighbors);
         dag[i] = *task;
+        free(task);
     }
+
     return dag;
 }
 

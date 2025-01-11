@@ -32,6 +32,16 @@ double TEST_topological_sort(struct Task *dag, int N){
     return end;
 }
 
+double TEST_topological_sort_SJF(struct Task *dag, int N){
+    topological_sort_SJF(dag,N);
+    if(test_correctness(dag,N)==false) return -1.0;
+    double end = 0.0;
+    for(int task_idx=0; task_idx<N; task_idx++){
+        end = end >= dag[task_idx].end ? end : dag[task_idx].end;
+    }
+    return end;
+}
+
 double TEST_unlimited_workers(struct Task *dag, int N){
     unlimited_workers(dag,N);
     if(test_correctness(dag,N)==false) return -1.0;
