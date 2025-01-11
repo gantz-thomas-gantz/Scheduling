@@ -13,7 +13,7 @@ int main(){
     fprintf(results_file, "N TS W1 W2 W3 W4 W5 WU\n");
     fprintf(times_file, "N TS W1 W2 W3 W4 W5 WU\n");
     
-    for (int N = 512; N <= 1000000; N *= 2) {
+    for (int N = 512; N <= 50000; N *= 2) {
         
         struct Task *dag = generate_random_DAG(N);
         clock_t start, end;
