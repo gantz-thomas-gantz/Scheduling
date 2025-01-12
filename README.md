@@ -74,8 +74,6 @@ A circular queue is used in the **Topological Sort** to manage tasks that are re
 - **Shortest Job First (SJF)**:
   - A variant of topological sort where tasks with shorter durations are prioritized.
 
-### 5. **Worker Scheduling**
-
 - **Limited Workers**: 
   - Assigns tasks to a fixed number of workers, scheduling tasks based on their readiness and duration.
 - **Unlimited Workers**:
