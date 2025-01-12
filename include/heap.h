@@ -5,7 +5,7 @@
 // Each node contains an index and a value used for ordering in the heap
 typedef struct {
     int i;         // Integer identifier (task index)
-    double val;    // Value used for heap ordering (task duration or priority)
+    double val;    // Value used for heap ordering (e.g. task duration or priority)
 } heap_node;
 
 // Definition of the min-heap

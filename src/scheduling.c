@@ -2,11 +2,11 @@
 #include "../include/graph.h"
 #include "../include/heap.h"
 
-#define SHIFT 10e-10 // Small value to ensure proper task scheduling order
+#define SHIFT 10e-10 // Small value to ensure numerical correctness.
 
 /**
- * Function to handle scheduling with unlimited workers.
- * Tasks are processed as soon as they are ready, and their successors are scheduled once completed.
+ * @brief Function to handle scheduling with unlimited workers.
+ * Tasks are processed as soon as they are ready.
  * 
  * @param dag The directed acyclic graph representing tasks and their dependencies.
  * @param N The number of tasks in the graph.
@@ -45,7 +45,7 @@ void unlimited_workers(struct Task *dag, int N) {
 }
 
 /**
- * Function to handle scheduling with a limited number of workers.
+ * @brief Function to handle scheduling with a limited number of workers.
  * The number of active workers is restricted, and tasks are scheduled as soon as workers are available.
  * 
  * @param dag The directed acyclic graph representing tasks and their dependencies.

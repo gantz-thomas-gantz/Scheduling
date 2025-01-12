@@ -6,7 +6,7 @@
 #include "../include/queue.h"
 #include "../include/heap.h"
 
-#define SHIFT 10e-10
+#define SHIFT 10e-10 // Small value to ensure numerical correctness.
 
 /**
  * @brief Performs a topological sort on the task graph and calculates the end time of each task.
@@ -20,7 +20,7 @@
 void topological_sort(struct Task *dag, int N) {
     set_req(dag, N);
     CircularQueue q;
-    init_circular_queue(&q, N/100+10);  // Initialize the circular queue with a capacity of N tasks
+    init_circular_queue(&q, N/100+10);  // randomly chosen
 
     double TIME = 0.;
 
@@ -52,8 +52,7 @@ void topological_sort(struct Task *dag, int N) {
 /**
  * @brief Performs a Shortest-Job-First (SJF) topological sort on the task graph and calculates the end time of each task.
  * 
- * This function processes the tasks in a directed acyclic graph (DAG) in a topological order,
- * prioritizing the shortest tasks first to minimize total completion time.
+ * This function processes the tasks in a directed acyclic graph (DAG) in a topological order, prioritizing the shortest tasks.
  * 
  * @param dag The directed acyclic graph representing tasks and their dependencies.
  * @param N The number of tasks in the graph.

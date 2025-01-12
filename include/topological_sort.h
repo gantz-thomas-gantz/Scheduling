@@ -17,8 +17,7 @@ void topological_sort(struct Task *dag, int N);
 /**
  * @brief Performs a Shortest-Job-First (SJF) topological sort on the task graph and calculates the end time of each task.
  * 
- * This function processes tasks in a directed acyclic graph (DAG) in topological order, 
- * prioritizing the shortest tasks first to minimize total completion time.
+ * This function processes the tasks in a directed acyclic graph (DAG) in a topological order, prioritizing the shortest tasks.
  * 
  * @param dag The directed acyclic graph representing tasks and their dependencies.
  * @param N The number of tasks in the graph.
