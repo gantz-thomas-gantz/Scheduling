@@ -1,5 +1,3 @@
-Sure! Here's a `README.md` that covers the entire project, including a brief description of each component.
-
 ```markdown
 # Task Scheduling Project
 
