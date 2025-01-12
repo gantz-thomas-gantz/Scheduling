@@ -3,8 +3,6 @@
 
 #include "../include/graph.h"
 
-#include <stdio.h>
-
 /**
  * @brief Prints the details of a given task.
  * 
@@ -22,6 +20,7 @@ void print_task(const struct Task* task) {
     printf("  Requirements (req): %d\n", task->req);
     printf("  Number of Successors (ns): %d\n", task->ns);
 
+    // Check if the task has successors, and print them
     if (task->ns > 0 && task->successors != NULL) {
         printf("  Successors: ");
         for (int i = 0; i < task->ns; ++i) {
@@ -56,16 +55,22 @@ void print_all_tasks(const struct Task* tasks, int n) {
     }
 }
 
-
+/**
+ * @brief Fills an array with random 0s or 1s, and counts how many 1s are in the array.
+ * 
+ * @param array Pointer to the array to be filled.
+ * @param size The size of the array.
+ * @param start Index from where to start filling the array.
+ * @return The number of 1s in the array.
+ */
 static int fill_array(int *array, int size, int start) {
-    // Initialize the random number generator
     int count1 = 0;
     for (int i = start; i < size; i++) {
         // Randomly assign 0 or 1
         int val = rand() % 2;
         array[i] = val;
         if(val==1){
-            count1++;
+            count1++;  // Count the number of 1s
         }
     }
     return count1;
@@ -90,6 +95,12 @@ static double random_double(double min, double max) {
     return min + (rand() / (double)RAND_MAX) * (max - min);
 }
 
+/**
+ * @brief Generates a random Directed Acyclic Graph (DAG) of tasks.
+ * 
+ * @param N The number of tasks in the DAG.
+ * @return A pointer to the generated array of Task structures.
+ */
 struct Task *generate_random_DAG(int N) {
     struct Task *dag = malloc(N * sizeof(struct Task));
     
@@ -101,12 +112,12 @@ struct Task *generate_random_DAG(int N) {
         // Fill adjacency array, only allowing successors from i+1 onward to maintain DAG property
         task->ns = fill_array(neighbors, N, i + 1);
 
-        task->duration = random_double(1.0, 10.0);
-        task->end = -1.0;
-        task->req = 0;
+        task->duration = random_double(1.0, 10.0); // Random task duration
+        task->end = -1.0; // Initial end time is not set
+        task->req = 0;    // Initial requirements count is 0
         task->successors = malloc(task->ns * sizeof(int));
 
-        // Copy successor indices
+        // Copy successor indices into task's successor list
         int place = 0;
         for (int j = 0; j < N; j++) {
             if (neighbors[j] == 1) {
@@ -114,19 +125,25 @@ struct Task *generate_random_DAG(int N) {
             }
         }
 
-        free(neighbors);
-        dag[i] = *task;
-        free(task);
+        free(neighbors); // Free temporary adjacency array
+        dag[i] = *task;  // Store the task in the DAG array
+        free(task);      // Free the temporary task structure
     }
 
     return dag;
 }
 
+/**
+ * @brief Sets the requirements (number of predecessors) for each task in the DAG.
+ * 
+ * @param dag Pointer to the array of Task structures.
+ * @param N The number of tasks in the DAG.
+ */
 void set_req(struct Task *dag, int N){
-    for(int task_idx=0; task_idx<N; task_idx++){
-        for(int k=0; k<dag[task_idx].ns; k++){
+    for(int task_idx = 0; task_idx < N; task_idx++){
+        for(int k = 0; k < dag[task_idx].ns; k++){
             int successor_idx = dag[task_idx].successors[k];
-            dag[successor_idx].req++;
+            dag[successor_idx].req++;  // Increment the requirement count for the successor
         }
     }
 }
@@ -135,7 +152,7 @@ void set_req(struct Task *dag, int N){
  * @brief Frees the memory allocated for a random DAG.
  * 
  * @param dag Pointer to the array of Task structures.
- * @param N Number of tasks in the DAG.
+ * @param N The number of tasks in the DAG.
  */
 void free_random_DAG(struct Task* dag, int N) {
     for (int i = 0; i < N; i++) {
@@ -145,3 +162,4 @@ void free_random_DAG(struct Task* dag, int N) {
     // Free the memory allocated for the entire DAG array
     free(dag);
 }
+

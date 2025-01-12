@@ -6,11 +6,17 @@
 #include "../include/queue.h"
 #include "../include/heap.h"
 
-// DFS complicated with this encoding
-// BFS (Kahn's algorithm): why queue if I can directly use a heap (SJF)?
-
 #define SHIFT 10e-10
 
+/**
+ * @brief Performs a topological sort on the task graph and calculates the end time of each task.
+ * 
+ * This function processes the tasks in a directed acyclic graph (DAG) in a topological order,
+ * starting from the tasks with no prerequisites and updating their end times based on task durations.
+ * 
+ * @param dag The directed acyclic graph representing tasks and their dependencies.
+ * @param N The number of tasks in the graph.
+ */
 void topological_sort(struct Task *dag, int N) {
     set_req(dag, N);
     CircularQueue q;
@@ -43,6 +49,15 @@ void topological_sort(struct Task *dag, int N) {
     free_circular_queue(&q);  // Free the allocated memory for the circular queue
 }
 
+/**
+ * @brief Performs a Shortest-Job-First (SJF) topological sort on the task graph and calculates the end time of each task.
+ * 
+ * This function processes the tasks in a directed acyclic graph (DAG) in a topological order,
+ * prioritizing the shortest tasks first to minimize total completion time.
+ * 
+ * @param dag The directed acyclic graph representing tasks and their dependencies.
+ * @param N The number of tasks in the graph.
+ */
 void topological_sort_SJF(struct Task *dag, int N){
     set_req(dag,N);
     min_heap *heap = create_min_heap(N/100+10); // randomly chosen
@@ -69,6 +84,7 @@ void topological_sort_SJF(struct Task *dag, int N){
     }
     free_min_heap(heap);
 }
+
 
 
 
