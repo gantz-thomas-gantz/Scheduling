@@ -20,7 +20,7 @@ static bool test_correctness(struct Task *dag, int N){
         for(int k=0; k<dag[task_idx].ns; k++){
             int successor_idx = dag[task_idx].successors[k];
             double successor_start = dag[successor_idx].end - dag[successor_idx].duration;
-            if(successor_start <= predecessor_end){
+            if(successor_start < predecessor_end){
                 return false;
             } 
         }
