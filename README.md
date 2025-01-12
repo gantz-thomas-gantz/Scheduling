@@ -35,7 +35,7 @@ This project implements an efficient task scheduling system using different algo
 └── report.pdf
 ```
 
-## Key Components
+## Data Structures
 
 ### 1. **Graph Structure**
 
@@ -67,23 +67,27 @@ A circular queue is used in the **Topological Sort** to manage tasks that are re
   - `rear`: Index of the rear element.
   - `capacity`: Maximum capacity of the queue.
 
-### 4. **Scheduling Algorithms**
+## Scheduling Algorithms
 
-- **Topological Sort**: 
-  - Processes tasks in order respecting their dependencies, with tasks that have no prerequisites scheduled first.
-- **Shortest Job First (SJF)**:
-  - A variant of topological sort where tasks with shorter durations are prioritized.
+### 1. **Topological Sort**
+- Processes tasks in order respecting their dependencies, with tasks that have no prerequisites scheduled first.
 
-- **Limited Workers**: 
-  - Assigns tasks to a fixed number of workers, scheduling tasks based on their readiness and duration.
-- **Unlimited Workers**:
-  - Assigns tasks without limitation on the number of workers, processing all ready tasks in parallel.
+### 2. **Shortest Job First (SJF)**
+- A variant of topological sort where tasks with shorter durations are prioritized.
 
-### 6. **Testing and Performance Evaluation**
+### 3. **Limited Workers Scheduling**
+- Assigns tasks to a fixed number of workers, scheduling tasks based on their readiness and duration.
 
-- **Test Correctness**: Verifies that tasks' end times respect the dependencies and do not overlap in an incorrect order.
-- **Performance Test**: 
-  - Measures the execution time and efficiency of different scheduling strategies across a range of task sizes.
+### 4. **Unlimited Workers Scheduling**
+- Assigns tasks without limitation on the number of workers, processing all ready tasks in parallel.
+
+## Testing and Performance Evaluation
+
+### 1. **Test Correctness**
+- Verifies that tasks' end times respect the dependencies and do not overlap in an incorrect order.
+
+### 2. **Performance Test**
+- Measures the execution time and efficiency of different scheduling strategies across a range of task sizes.
 
 ## How to Compile and Run
 
@@ -96,5 +100,7 @@ build/main
 This will create two files:
 - `results.txt`: Contains the total execution times of the different schedules.
 - `times.txt`: Contains the execution times of the scheduling algorithms.
+
+
 
 
