@@ -1,4 +1,3 @@
-```markdown
 # Task Scheduling Project
 
 This project implements an efficient task scheduling system using different algorithms to calculate the end time of tasks in a Directed Acyclic Graph (DAG). The system is based on two main scheduling strategies: **Topological Sort** and **Shortest Job First (SJF)**. It also includes testing for correctness and performance evaluation using different worker configurations.
