@@ -1,6 +1,6 @@
 # Task Scheduling Project
 
-This project implements an efficient task scheduling system using different algorithms to calculate the end time of tasks in a Directed Acyclic Graph (DAG). It also includes testing for correctness and performance evaluation using different worker configurations.
+This project implements an efficient task scheduling system using different algorithms to calculate the end time of tasks in a Directed Acyclic Graph (DAG). It also includes testing for correctness and performance evaluation using different configurations.
 
 ## Features
 
@@ -8,7 +8,7 @@ This project implements an efficient task scheduling system using different algo
 - **Shortest Job First (SJF)**: A variation of topological sort where tasks with the shortest durations are prioritized.
 - **Limited Workers Scheduling**: Schedules tasks with a constrained number of available workers.
 - **Unlimited Workers Scheduling**: Schedules tasks assuming an unlimited number of workers.
-- **Performance Testing**: Supports performance tests for various task sizes (N) and configurations (number of workers).
+- **Performance Testing**: Supports performance tests for various task sizes (N) and configurations.
 
 ## Directory Structure
 
@@ -46,11 +46,11 @@ A directed acyclic graph (DAG) is used to represent the tasks and their dependen
   - `end`: The calculated end time for the task.
   - `req`: The number of prerequisite tasks.
   - `ns`: The number of successor tasks.
-  - `successors`: Array of indices pointing to successor tasks.
+  - `successors`: Array of indices indicating successor tasks.
 
 ### 2. **Heap**
 
-A min-heap data structure is used to handle tasks with the shortest duration first. This is useful in the **Shortest Job First (SJF)** and **Limited Workers** scheduling algorithms.
+A min-heap data structure is used to handle tasks with the shortest duration or shortest end time first. This is useful in the **Shortest Job First (SJF)**, **Limited Workers** and **Unlimited Workers** scheduling algorithms.
 
 - **min_heap struct**:
   - `data`: Array storing heap nodes (tasks).
@@ -87,7 +87,7 @@ A circular queue is used in the **Topological Sort** to manage tasks that are re
 - Verifies that tasks' end times respect the dependencies and do not overlap in an incorrect order.
 
 ### 2. **Performance Test**
-- Measures the execution time and efficiency of different scheduling strategies across a range of task sizes.
+- Measures the execution time and efficiency of different scheduling algorithms.
 
 ## How to Compile and Run
 
